@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!-- Gazebo plugins give your URDF models greater functionality and can tie
+   in ROS messages and service calls for sensor output and motor input. -->
+<!--   Here, Gazebo plugin gives the camera functionality and publishes 
+        the image to a ROS message.-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="my_robot">
+ 
+  <!-- <gazebo reference="front_left_wheel">
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
+  </gazebo>
+
+  <gazebo reference="front_right_wheel">
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
+  </gazebo>
+  -->
+ 
+  <!-- camera -->
+  <!--the reference tag links the following code with its link in the urdf-->
+  <gazebo reference="camera_link"> <!-- must be the same name for sensor link as urdf-->
+    <sensor type="camera" name="camera1"> <!--"type" is sensor type,"name" is unique name for the sensor -->
+      <pose>0 0 0 0 0 0</pose> 
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>my_robot/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+ <!-- hokuyo -->
+ <gazebo reference="hokuyo_link">
+  <sensor type="ray" name="head_hokuyo_sensor">
+    <!--When "visualize" is true, a semi-translucent laser ray is 
+    visualized within the scanning zone of the gpu laser. -->  
+    <pose>0 0 0 0 0 0</pose>
+    <visualize>true</visualize>
+    <alwaysOn>true</alwaysOn>
+    <update_rate>40</update_rate>
+    <ray>
+      <scan>
+        <horizontal>
+          <samples>720</samples>
+          <resolution>1</resolution>
+          <min_angle>0</min_angle>
+          <max_angle>6.28</max_angle>
+        </horizontal>
+      </scan>
+      <range>
+        <min>0.07</min>
+        <max>7.0</max>
+        <resolution>1</resolution>
+      </range>
+      <noise>
+        <type>gaussian</type>
+        <!-- Noise parameters based on published spec for Hokuyo laser
+             achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+             stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+             reading. -->
+        <mean>0.0</mean>
+        <stddev>0.01</stddev>
+      </noise>
+    </ray>
+    <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+
+
+      <!-- Set these to the ROS topic name you would like 
+        to publish the laser scans to, and the transform frame 
+          you would like TF to use.--> 
+        <topicName>/my_robot/laser/scan</topicName>
+        <frameName>hokuyo_link</frameName>
+    </plugin>
+  </sensor>
+</gazebo>  
+</robot>

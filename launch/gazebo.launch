@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--This launch file will run 3 nodes-->
+<!-- First node is spawn_model from gazebo_ros pkg-->
+<!-- Second node is robot_state_publisher from robot_state_publisher pkg-->
+<!-- Third node is joint_state_publisher_gui from joint_state_publisher_gui pkg-->
+<launch>
+
+        <!-- convert xacro to urdf-->
+    <param name="robot_description" command="$(find xacro)/xacro '$(find my_robot)/urdf/robot.xacro'"/>
+    <node pkg="gazebo_ros" type="spawn_model" name="spawn_urdf" output="screen" 
+    args="-param robot_description -urdf -model my_robot -x 2 -y 2 -z 0 -R 0 -P 0 -Y -4.71"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find my_robot)worlds/arche.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="recording" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/> 
+    <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui"/>
+
+</launch>
+           
+                

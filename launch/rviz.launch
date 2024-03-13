@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+<!-- ________________________________________________________________-->
+<!-- node to launch my robot--> 
+<param name="robot_description" command="xacro '$(find my_robot)/urdf/robot.xacro'"/>
+<!-- ________________________________________________________________-->
+
+
+<!-- ________________________________________________________________________________-->
+<!-- the configuration file-->   
+<arg name="rviz_config_file" default="$(find my_robot)/config/config.rviz"/>
+<!--__________________________________________________________________________________ -->
+
+
+<!--__________________________________________________________________________________ -->
+
+<node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/> 
+<node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher"/>
+<node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui"/>
+<!-- the args tag is used to pass the config file to rviz when launch-->
+<node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rviz_config_file)"/>
+
+<!--__________________________________________________________________________________ -->
+
+</launch>

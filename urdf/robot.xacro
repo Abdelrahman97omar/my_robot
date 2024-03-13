@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="my_robot"> 
+
+  <xacro:include filename="$(find my_robot)/urdf/plgins.gazebo"/>
+  <xacro:include filename="$(find my_robot)/urdf/diff_drive.gazebo"/>
+  
+  <link name="base_footprint"></link>
+  <link name="base_link">
+        <inertial>
+            <origin xyz="0.0 0.0 0.0"/>
+            <mass value="20"/>
+            <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+        </inertial>
+        <visual>
+            <origin xyz="0.0 0.0 0.2" />
+            <geometry>
+                <box size="0.6 0.45 0.15"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.2" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.6 0.45 0.15"/>
+            </geometry>
+        </collision>
+  </link>
+  <joint name="base_with_ground_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <axis xyz="0.0 0.0 0.0"/>
+  </joint>
+ 
+
+  <!-- FRONT LEFT WHEEL LINK   -->
+  <link name="front_left_wheel">    
+    <inertial>
+      <origin rpy="0 0 0 " xyz="0 0 0"/>
+      <mass value="0.7"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+    </inertial>
+    <collision name="front_left_wheel_collision">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+      </geometry>
+    </collision>
+    <visual name="front_left_wheel_visual">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+      </geometry>
+      <material name="Black"/>      
+    </visual>
+  </link>
+  <joint name="front_left_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.175 0.25 0.1"/>
+    <parent link="base_link"/>
+    <child link="front_left_wheel" />
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+  </joint>  
+
+  <!-- rear LEFT WHEEL LINK    -->
+  <link name="rear_left_wheel">    
+    <inertial>
+      <mass value="0.7"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+    </inertial>
+    <collision name="rear_left_wheel_collision">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+      </geometry>
+    </collision>
+    <visual name="rear_left_wheel_visual">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+      </geometry>  
+      <material name="Black"/>    
+    </visual>   
+  </link> 
+  <joint name="rear_left_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.175 0.25 0.1"/>
+    <parent link="base_link"/>
+    <child link="rear_left_wheel" />
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+  </joint> 
+
+
+  <!-- FRONT RIGHT WHEEL LINK   -->
+  <link name="front_right_wheel">    
+    <inertial>
+      <mass value="0.7"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+    </inertial>
+    <collision name="front_right_wheel_collision">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+      </geometry>
+    </collision>
+    <visual name="front_right_wheel_visual">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+      </geometry>   
+      <material name="Black"/>   
+    </visual>
+  </link>
+  <joint name="front_right_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="0.175 -0.25 0.10"/>
+    <parent link="base_link"/>
+    <child link="front_right_wheel" />
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+  </joint>   
+
+<!-- rear RIGHT WHEEL LINK    -->
+  <link name="rear_right_wheel">    
+    <inertial>
+      <mass value="0.7"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.1"/>
+    </inertial>
+    <collision name="rear_right_wheel_collision">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+      </geometry>
+    </collision>
+    <visual name="rear_right_wheel_visual">
+      <origin rpy="0 1.5707 1.5707" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.1"/>
+      </geometry>  
+      <material name="Black"/>    
+    </visual>   
+  </link> 
+  <joint name="rear_right_joint" type="continuous">
+    <origin rpy="0 0 0" xyz="-0.175 -0.25 0.10"/>
+    <parent link="base_link"/>
+    <child link="rear_right_wheel" />
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+  </joint> 
+
+   <!-- CAMERA LINK -->
+    <link name="camera_link">
+      <collision>
+        <origin xyz="0.325 0.0 0.2" rpy="0 0 0"/>
+         <geometry>
+             <box size="0.050 0.20 0.07"/>
+         </geometry>
+     </collision>
+                  
+     <visual >
+      <origin xyz="0.325 0.0 0.2" rpy="0 0 0"/>
+      <geometry>
+          <box size="0.050 0.20 0.07"/>
+      </geometry>
+      <material name="Blue"/>
+     </visual>
+                  
+     <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <mass value="0.9"/>
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+  </inertial>
+ </link>
+
+  <joint name="camera_joint" type="fixed">
+      <axis xyz="0 0 0" />
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <parent link="base_link"/>
+      <child link="camera_link"/>
+  </joint>
+   
+    <!-- LIDAR LINK -->
+    <link name="hokuyo_link">
+    <inertial>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <mass value="0.9"/>
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+        <origin xyz=" 0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <mesh filename="package://my_robot/meshes/hokuyo.dae"/>       
+        </geometry>
+    </visual>
+  
+    <collision>
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <geometry>
+            <mesh filename="package://my_robot/meshes/hokuyo.dae" />
+        </geometry>  
+    </collision>
+    </link>
+  
+    <joint name="lider_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.304" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="hokuyo_link"/>
+        <axis xyz="0 0 0" />
+    </joint>
+</robot>

@@ -1,0 +1,16 @@
+  global_costmap:
+    global_frame: /map
+    robot_base_frame: /base_footprint
+    update_frequency: 1 #1.0
+    publish_frequency: 10
+    transform_tolerance: 0.5
+    static_map: true  #to make this file only affect the static env. 3shan de global
+    rolling_window: false #rolling_window is the dynamic obsticals
+
+    #the following 3 layers are the layers I created 
+    #in the costmap_common_params.yaml and I will implement them as plugins
+    plugins:
+      - {name: static_layer,            type: "costmap_2d::StaticLayer"}
+      - {name: laser_layer,             type: "costmap_2d::ObstacleLayer"} 
+      - {name: inflation_layer,         type: "costmap_2d::InflationLayer"}
+

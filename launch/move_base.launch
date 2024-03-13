@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!-- Starts move_base (navigation stack) and loads the proper config files -->
+<launch>  
+ <!-- Specify the name of the sensor data and command topics (can be overridden on the command line) -->
+  <!-- If no laser data is provided the local and global planer will be unable to perform dynamic obstacle avoidance -->
+   <arg name="odom_frame_id"   default="odom" />
+  <arg name="base_frame_id"   default="base_link" />
+  <arg name="global_frame_id" default="map" />
+  <arg name="cmd_vel_topic"   default="cmd_vel" />
+  <arg name="odom_topic"      default="odom" />
+  <arg name="laser_topic"     default="/my_robot/laser/scan" />
+  <arg name="move_forward_only" default="True"/>
+
+<!-- Alternative global planners, default is NavfnROS: -->
+<!-- arg name="base_global_planner" default="srv_client_plugin/SrvClientPlugin" -->
+<!-- arg name="base_global_planner" default="carrot_planner/CarrotPlanner"/ -->
+<!-- arg name="base_global_planner" default="navfn/NavfnROS"/-->
+<!-- Default local planner (default is trajectory rollout) -->
+<!-- <arg name="base_local_planner" default="base_local_planner/TrajectoryPlannerROS"/> -->
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <!-- The following are parameters passed to the node-->
+    <!-- rosparam for setting ros parameters--> 
+      <rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+      <rosparam file="$(find my_robot)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />   
+      <rosparam file="$(find my_robot)/config/local_costmap_params.yaml" command="load"/>   
+      <rosparam file="$(find my_robot)/config/global_costmap_params.yaml" command="load"/>
+      <rosparam file="$(find my_robot)/config/move_base_params.yaml" command="load"/>
+      <rosparam file="$(find my_robot)/config/global_planner_params.yaml" command="load"/>
+      <rosparam file="$(find my_robot)/config/dwa_local_planner_params.yaml" command="load"/>
+    
+      <param name= "global_costmap/global_frame" value="map"/>
+      <param name= "global_costmap/robot_base_frame" value="base_footprint"/>
+
+      <param name= "local_costmap/global_frame" value="odom"/>
+      <param name= "local_costmap/robot_base_frame" value="base_footprint"/>
+    
+
+      <remap from="cmd_vel" to="cmd_vel"/>
+      <remap from="odom" to="odom"/>
+      <remap from="scan" to="/my_robot/laser/scan"/>
+    </node>
+  </launch>
