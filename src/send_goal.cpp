@@ -38,11 +38,12 @@ int main(int argc,char** argv)
   {
     geometry_msgs::PoseStamped set; // set is obj. to use the attributed in posestamp with it
     set.header.frame_id = "map";
-    cout<<"enter x posetion";
+    
+    cout<<"enter x posetion"<<endl;
     cin>>set.pose.position.x;
-    cout<<"enter y posetion";
+    cout<<"enter y posetion"<<endl;
     cin>>set.pose.position.y;
-    cout<<"enter orintation";
+    cout<<"enter orintation"<<endl;
     cin>>set.pose.orientation.z;
     set.pose.orientation.w=1;
 

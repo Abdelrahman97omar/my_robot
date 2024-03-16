@@ -4,11 +4,10 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
+        - /Grid1
+        - /TF1/Status1
         - /TF1/Frames1
         - /TF1/Tree1
-        - /GlobalMap1
-        - /LocalMap1
         - /LocalMap1/Position1
       Splitter Ratio: 0.5
     Tree Height: 377
@@ -53,7 +52,7 @@ Visualization Manager:
         Z: 0
       Plane: XY
       Plane Cell Count: 10
-      Reference Frame: base_footprint
+      Reference Frame: map
       Value: true
     - Alpha: 1
       Class: rviz/RobotModel
@@ -335,7 +334,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 15.660134315490723
+      Distance: 27.058319091796875
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -353,7 +352,7 @@ Visualization Manager:
       Near Clip Distance: 0.009999999776482582
       Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
-      Yaw: 1.9807568788528442
+      Yaw: 2.375757932662964
     Saved:
       - Class: rviz/Orbit
         Distance: 10

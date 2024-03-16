@@ -204,7 +204,7 @@ include_directories(${catkin_INCLUDE_DIRS})
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-add_executable(send_goal_node src/send_goal.cpp)
-add_dependencies(send_goal_node ${send_goal_node_EXPPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(send_goal_node 
+add_executable(send_goal src/send_goal.cpp)
+add_dependencies(send_goal ${send_goal_EXPPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(send_goal
 ${catkin_LIBRARIES})
