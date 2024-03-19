@@ -11,6 +11,7 @@
 <div>
   <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/my_map.jpg" width="600" height="600" \>
 </div>
+![](https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/mapping.gif)
 
 ## Navigation
 
