@@ -14,5 +14,5 @@ rosrun my_robot send_goal
 [YOUTUBE](https://www.youtube.com/watch?v=evz1LqEomTE) -video illust
 
 <div>
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/Untitled.jpeg" width="300" height="300" \>
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/my_map.jpg" width="300" height="300" \>
 </div>
