@@ -27,6 +27,7 @@ DWAPlannerROS:
   acc_lim_theta: 3
   acc_lim_y: 0 # diff drive robot
 
+ 
 # Goal Tolerance Parameters
 #tolerance for the robot around the goal. of the robot doesn't reach the robot exactly
 # or reached the goal with different orintation, i have to change thos values.
