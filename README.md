@@ -10,8 +10,8 @@ For the URDF, I have chosen a straightforward model constructed using xacro, con
 #### The environment:
 I have created the environment using gazebo using different shapes and rooms to test all the functionalty of the robot from sensors functionality object avoidance and path planning.
 <div>
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map1.png" width="500" height="400" \>
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map2.png" width="500" height="400" \>
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map1.png" width="400" height="400" \>
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map2.png" width="400" height="400" \>
 </div>
 
 ## Mapping
