@@ -38,6 +38,10 @@ To save the map
 
 
 ## Navigation
+<div>
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/rviz-nav.gif" width="500" height="400" \>
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/gaz-nav.gif" width="500" height="400" \>
+</div>
 
 ### AMCL
 ### Path Planning
