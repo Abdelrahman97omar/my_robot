@@ -56,9 +56,9 @@ There were also as well 5 .yaml config files to configure the local and global c
 
 
 <p float="left">
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/rviz-nav.gif" width="480" height="350" />
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/rviz-nav.gif" width="400" height="350" />
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/gaz-nav.gif" width="480" height="350" /> 
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/gaz-nav.gif" width="400" height="350" /> 
 </p>
 
 ### Publishing goals
