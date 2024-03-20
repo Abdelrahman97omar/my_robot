@@ -14,8 +14,8 @@ I used teleop_twist_keyboard package to move the robot with the keyboard and con
 #### The environment:
 
 <div>
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map1.png" width="600" height="600" \>
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map2.png" width="600" height="600" \>
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map1.png" width="600" height="400" \>
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map2.png" width="600" height="400" \>
 </div>
 
 Mapping commands :
@@ -27,6 +27,7 @@ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 <div>
   <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/mapping.gif" width="700" height="400" \>
 </div>
+
 
 To save the map
 ```
