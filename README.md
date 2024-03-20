@@ -1,7 +1,7 @@
 # Autonomous Mobile Robot
 
 ## Introduction
-
+This project is a simulation of fully function Autonomous Mobile Robot (AMR). The Project I created will take you to a full journy of the process of creating AMRs simulation, starting from creating the model, adding sensors, passing throught mapping and localization process and finally the navigation part. You will also be able to send the robot goals using your terminal and the robot will navigate in your environment till it reaches the goal.
 ## Creating URDF and Gazebo plugins
 For the URDF, I have chosen a straightforward model constructed using xacro, consisting of a rectangular base, four wheels, a lidar, and a camera. Additionally, I have supplemented this model with Gazebo plugins in a separate file, to add a functionality and adding specs for sensors and controllers by integrating plugins for the Lidar, Camera, and skid-steering mechanisms. Those plugins will affect the simulation and control of the robot and give them features of the real sensors and controllers.
 
@@ -22,8 +22,10 @@ I used teleop_twist_keyboard package to move the robot with the keyboard and con
 
 Mapping commands :
 ```
-roslaunch my_robot gmapping.launch
-rosrun teleop_twist_keyboard teleop_twist_keyboard.py 
+$ roslaunch my_robot gazebo.launch
+$ roslaunch my_robot rviz.launch
+$ roslaunch my_robot gmapping.launch
+$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py 
 ```
 
 <div>
