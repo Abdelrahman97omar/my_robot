@@ -52,8 +52,6 @@ The map server provides the static map of the environment, which I have created 
 I have created navigation.launch file which launches mapserver, amcl.launch and move_base node.
 There were also as well 5 .yaml config files to configure the local and global cost maps, local and global planners and move_base node. In those config files, I configured some parameters that as the raduis of the inflation layer, max speed, choosing Dijkstra's algorithm for path planning.
 
-### Publishing goals
-I have created a node "send_goal" using c++ to send a goal to the robot without using rviz. This node publish msgs of type ``` geometry_msgs/PoseStamped ``` over the topic ``` move_base_simple/goal ```
 
 <p float="left">
   <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/rviz-nav.gif" width="480" height="350" />
@@ -61,6 +59,11 @@ I have created a node "send_goal" using c++ to send a goal to the robot without 
   <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/gaz-nav.gif" width="480" height="350" /> 
 </p>
 
+### Publishing goals
+I have created a node "send_goal" using c++ to send a goal to the robot without using rviz. This node publish msgs of type ``` geometry_msgs/PoseStamped ``` over the topic ``` move_base_simple/goal ```
+<div>
+    <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/node-terminal.png" width="500" height="300" /> 
+</div>
 
 ## Operation:
 
