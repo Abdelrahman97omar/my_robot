@@ -1,7 +1,7 @@
 # Autonomous Mobile Robot
 
 ## Introduction
-
+This project is a simulation of fully function Autonomous Mobile Robot (AMR). The Project I created will take you to a full journy of the process of creating AMRs simulation, starting from creating the model, adding sensors, passing throught mapping and localization process and finally the navigation part. You will also be able to send the robot goals using your terminal and the robot will navigate in your environment till it reaches the goal.
 ## Creating URDF and Gazebo plugins
 For the URDF, I have chosen a straightforward model constructed using xacro, consisting of a rectangular base, four wheels, a lidar, and a camera. Additionally, I have supplemented this model with Gazebo plugins in a separate file, to add a functionality and adding specs for sensors and controllers by integrating plugins for the Lidar, Camera, and skid-steering mechanisms. Those plugins will affect the simulation and control of the robot and give them features of the real sensors and controllers.
 
@@ -10,8 +10,8 @@ For the URDF, I have chosen a straightforward model constructed using xacro, con
 #### The environment:
 I have created the environment using gazebo using different shapes and rooms to test all the functionalty of the robot from sensors functionality object avoidance and path planning.
 <div>
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map1.png" width="500" height="400" \>
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map2.png" width="500" height="400" \>
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map1.png" width="400" height="400" \>
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/map2.png" width="400" height="400" \>
 </div>
 
 ## Mapping
@@ -22,8 +22,10 @@ I used teleop_twist_keyboard package to move the robot with the keyboard and con
 
 Mapping commands :
 ```
-roslaunch my_robot gmapping.launch
-rosrun teleop_twist_keyboard teleop_twist_keyboard.py 
+$ roslaunch my_robot gazebo.launch
+$ roslaunch my_robot rviz.launch
+$ roslaunch my_robot gmapping.launch
+$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py 
 ```
 
 <div>
@@ -52,15 +54,18 @@ The map server provides the static map of the environment, which I have created 
 I have created navigation.launch file which launches mapserver, amcl.launch and move_base node.
 There were also as well 5 .yaml config files to configure the local and global cost maps, local and global planners and move_base node. In those config files, I configured some parameters that as the raduis of the inflation layer, max speed, choosing Dijkstra's algorithm for path planning.
 
-### Publishing goals
-I have created a node "send_goal" using c++ to send a goal to the robot without using rviz. This node publish msgs of type ``` geometry_msgs/PoseStamped ``` over the topic ``` move_base_simple/goal ```
 
 <p float="left">
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/rviz-nav.gif" width="480" height="350" />
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/rviz-nav.gif" width="400" height="350" />
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/gaz-nav.gif" width="480" height="350" /> 
+  <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/gaz-nav.gif" width="400" height="350" /> 
 </p>
 
+### Publishing goals
+I have created a node "send_goal" using c++ to send a goal to the robot without using rviz. This node publish msgs of type ``` geometry_msgs/PoseStamped ``` over the topic ``` move_base_simple/goal ```
+<div>
+    <img src="https://github.com/Abdelrahman97omar/my_robot/blob/master/pictures/node-terminal.png" width="500" height="300" /> 
+</div>
 
 ## Operation:
 
