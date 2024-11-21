@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <launch>
     <!-- Arguments -->
-    <arg name="initial_pose_x" default="2.0"/>
-    <arg name="initial_pose_y" default="2.0"/>
-    <arg name="initial_pose_a" default="4.71"/>
+    <arg name="initial_pose_x" default="0.0"/>
+    <arg name="initial_pose_y" default="0.0"/>
+    <arg name="initial_pose_a" default="0.0"/>
     
     <!-- <node pkg="map_server" type="map_server" name="map_server" args="$(find my_robot)/map/my_map.yaml"/> -->
     <!-- AMCL -->

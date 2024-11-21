@@ -73,7 +73,7 @@
     <!--When "visualize" is true, a semi-translucent laser ray is 
     visualized within the scanning zone of the gpu laser. -->  
     <pose>0 0 0 0 0 0</pose>
-    <visualize>true</visualize>
+    <visualize>false</visualize>
     <alwaysOn>true</alwaysOn>
     <update_rate>40</update_rate>
     <ray>

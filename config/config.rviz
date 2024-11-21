@@ -4,8 +4,8 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
         - /Grid1
-        - /TF1/Status1
         - /TF1/Frames1
         - /TF1/Tree1
         - /LocalMap1/Position1
@@ -352,7 +352,7 @@ Visualization Manager:
       Near Clip Distance: 0.009999999776482582
       Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
-      Yaw: 2.375757932662964
+      Yaw: 3.0907599925994873
     Saved:
       - Class: rviz/Orbit
         Distance: 10
@@ -392,5 +392,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1294
-  X: 72
-  Y: 27
+  X: 1145
+  Y: 212
