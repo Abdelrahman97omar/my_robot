@@ -11,9 +11,17 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  actionlib
+  actionlib_msgs
   geometry_msgs
 )
+generate_messages(
+  DEPENDENCIES actionlib_msgs std_msgs
+)
 
+catkin_package(
+  CATKIN_DEPENDS roscpp actionlib actionlib_msgs std_msgs
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -208,3 +216,11 @@ add_executable(send_goal src/send_goal.cpp)
 add_dependencies(send_goal ${send_goal_EXPPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(send_goal
 ${catkin_LIBRARIES})
+
+add_executable(action_server src/actserver.cpp)
+target_link_libraries(action_server ${catkin_LIBRARIES})
+add_dependencies(action_server ${send_goal_EXPPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+add_executable(action_client src/actiongoals.cpp)
+target_link_libraries(action_client ${catkin_LIBRARIES})
+add_dependencies(action_client ${send_goal_EXPPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
