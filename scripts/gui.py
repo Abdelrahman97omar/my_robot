@@ -1,13 +1,14 @@
 
-from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import Pose
+# from std_msgs.msg import 
 from scipy.spatial.transform import Rotation as R
 import tkinter as tk
 import rospy
 import numpy as np
 
 rospy.init_node('gui_goal_sender', anonymous=True)
-pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=10)
-goal = PoseStamped()
+pub = rospy.Publisher('gui_action_topic_send_table', Pose, queue_size=10)
+goal = Pose()
 
 Table_1_pose=(3,3,0)
 Table_2_pose=(2,2,0)
@@ -22,14 +23,14 @@ GUI_label_list_index=0
 def send_goal(goTo):
         global my_qeue
         quaternion = euler_to_quaternion(goTo[2])
-        goal.header.frame_id = "map"  # Or use whatever your robot's frame is
-        goal.header.stamp = rospy.Time.now()
-        goal.pose.position.x = goTo[0]
-        goal.pose.position.y = goTo[1]
-        goal.pose.orientation.x= quaternion[0]
-        goal.pose.orientation.y= quaternion[1]
-        goal.pose.orientation.z= quaternion[2]
-        goal.pose.orientation.w= quaternion[3]
+        # goal.header.frame_id = "map"  # Or use whatever your robot's frame is
+        # goal.header.stamp = rospy.Time.now()
+        goal.position.x = goTo[0]
+        goal.position.y = goTo[1]
+        goal.orientation.x= quaternion[0]
+        goal.orientation.y= quaternion[1]
+        goal.orientation.z= quaternion[2]
+        goal.orientation.w= quaternion[3]
         pub.publish(goal)
         
 

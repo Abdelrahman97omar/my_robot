@@ -8,8 +8,6 @@ void executeCB(const move_base_msgs::MoveBaseGoalConstPtr& goal,
                actionlib::SimpleActionServer<move_base_msgs::MoveBaseAction>* as,
                ros::Publisher* goal_pub) {
     ROS_INFO("Received goal: x = %f, y = %f", goal->target_pose.pose.position.x, goal->target_pose.pose.position.y);
-
-    // Publish the goal to /move_base_simple/goal
     geometry_msgs::PoseStamped simple_goal;
     simple_goal.header.frame_id = "map";
     simple_goal.header.stamp = ros::Time::now();
@@ -18,7 +16,6 @@ void executeCB(const move_base_msgs::MoveBaseGoalConstPtr& goal,
     goal_pub->publish(simple_goal);
     ROS_INFO("Goal sent to move_base.");
 
-    // Set the action state to succeeded
     as->setSucceeded();
 }
 
