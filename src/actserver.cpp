@@ -15,7 +15,6 @@ void executeCB(const move_base_msgs::MoveBaseGoalConstPtr& goal,
 
     goal_pub->publish(simple_goal);
     ROS_INFO("Goal sent to move_base.");
-
     as->setSucceeded();
 }
 
