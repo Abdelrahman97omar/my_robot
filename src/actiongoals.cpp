@@ -2,15 +2,27 @@
 #include <actionlib/client/simple_action_client.h>
 #include <move_base_msgs/MoveBaseAction.h>
 #include<geometry_msgs/Pose.h>
+#include <std_msgs/String.h>
+
+ros::Publisher pub;
+
 // Feedback callback
 void feedbackCB(const move_base_msgs::MoveBaseFeedbackConstPtr& feedback) {
-    // ROS_INFO("Feedback received: Current position -> x = %f, y = %f", feedback->base_position.pose.position.x, feedback->base_position.pose.position.y);
-}
 
+    //In this function add condition that if feedback doesn't match goal odom, cancel current goal and send to gui to send new goal
+
+}
 // Result callback
 void doneCB(const actionlib::SimpleClientGoalState& state, const move_base_msgs::MoveBaseResultConstPtr& result) {
-    // ROS_INFO("Goal completed with state: %s", state.toString().c_str());
-    // ROS_INFO("Final position -> x = %f, y = %f", result->base_position.pose.position.x, result->base_position.pose.position.y);
+
+    ROS_INFO("in call back %s", state.toString().c_str());
+    ROS_INFO("in donce");
+    if (state == actionlib::SimpleClientGoalState::SUCCEEDED) {
+        ROS_INFO("goal succeded");
+        std_msgs::String robotresult;
+        robotresult.data = "Done";
+        pub.publish(robotresult);
+}
 }
 
 // Active callback
@@ -19,6 +31,7 @@ void activeCB() {
 }
 void guiCB(const geometry_msgs::Pose::ConstPtr& my_msg, actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>& ac)
 {
+        ROS_INFO("I have received a goal");
         move_base_msgs::MoveBaseGoal goal_to_server;
         goal_to_server.target_pose.header.frame_id = "map";
         goal_to_server.target_pose.header.stamp = ros::Time::now();
@@ -28,24 +41,24 @@ void guiCB(const geometry_msgs::Pose::ConstPtr& my_msg, actionlib::SimpleActionC
         goal_to_server.target_pose.pose.orientation.y= my_msg->orientation.y;
         goal_to_server.target_pose.pose.orientation.z= my_msg->orientation.z;
         goal_to_server.target_pose.pose.orientation.w= my_msg->orientation.w;
-
-        ac.sendGoal(goal_to_server, &doneCB, &activeCB, &feedbackCB);
+        
+        ac.sendGoal(goal_to_server,&doneCB, &activeCB, &feedbackCB);
+        
 }
 int main(int argc, char** argv) {
+
+
+    ros::init(argc, argv, "action_client");
+    ros::NodeHandle nh;
+
     actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("goal_action_topic", true);
     ROS_INFO("Waiting for the action server to start...");
     ac.waitForServer();  // Wait until the server is ready
     ROS_INFO("Action server started. Sending goals...");
 
-    ros::init(argc, argv, "action_client");
-    ros::NodeHandle nh;
-    //================== Add subscriber and publisher to gui==============
-    // ros::Publisher pub;
     ros::Subscriber sub;
-    ROS_INFO("done sub init");
-    // pub=nh.advertise("",1000);
+    pub = nh.advertise<std_msgs::String>("GUI_Cleint_state_topic",1000);
     sub = nh.subscribe<geometry_msgs::Pose>("gui_action_topic_send_table", 1000,boost::bind(guiCB, _1, boost::ref(ac)));
-    ROS_INFO("Done CB init");
     ros::spin();
     //====================================================================
     return 0;

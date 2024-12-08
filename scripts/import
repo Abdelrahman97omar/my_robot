@@ -1,0 +1,29 @@
+
+def add_label():
+    # Create a new label and add it to the list
+    new_label = tk.Label(root, text=f"Label {len(labels) + 1}")
+    new_label.pack()  # Add it to the GUI
+    labels.append(new_label)  # Keep track of the label for later removal
+
+def delete_label():
+    if labels:
+        label_to_remove = labels.pop()  # Get the last label
+        label_to_remove.destroy()  # Remove it from the GUI
+
+# Create the main window
+root = tk.Tk()
+root.title("Dynamic Label Management")
+
+# A list to keep track of created labels
+labels = []
+
+# Buttons to add and delete labels
+add_button = tk.Button(root, text="Add Label", command=add_label)
+add_button.pack(pady=10)
+
+delete_button = tk.Button(root, text="Delete Last Label", command=delete_label)
+delete_button.pack(pady=10)
+
+# Start the Tkinter event loop
+root.mainloop()
+

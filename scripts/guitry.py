@@ -11,13 +11,14 @@ pub = rospy.Publisher('gui_action_topic_send_table', Pose, queue_size=10) # Publ
 goal = Pose()
 
 Home_pose   =(0,0,0)
-Table_1_pose=(6.4,2.4,0)
-Table_2_pose=(6.2,-0.75,0)
-Table_3_pose=(6.2,-4,0)
+Table_1_pose=(3,3,0)
+Table_2_pose=(2,2,0)
+Table_3_pose=(3,3,0)
 Casher_pose =(4,4,0)
-isGoalSent=False
+currentGoalToSent=[0,0,0]
+
 Goals_qeue=[]  # qeue of the goals to be sent to ros 
-labels=[]      # qeue of labels
+labels=[]
 
 
 # Function to send the goal to the robot
@@ -35,52 +36,27 @@ def send_goal(goTo):
         pub.publish(goal)
         
 def stateCB(data):
-    global isGoalSent
-    print("in done call back")
     if data.data=='Done' and len(Goals_qeue)>0:
-        print("I have recieved done")
-        deleteFromGoalsQeue()
         send_goal(Goals_qeue[0])
-    elif data.data=='Done' and len(Goals_qeue)==0:
-        isGoalSent=False
+        delteFromGoalsQeue()
 
 state_sub = rospy.Subscriber('GUI_Cleint_state_topic',String,stateCB)
 
 def add_table1():
-    global isGoalSent
-    print("in table 1")
     add_to_qeue(Table_1_pose)
     label_update('Table 1')
-    if not isGoalSent:
-        isGoalSent=True
-        print("Sending goal")
-        send_goal(Table_1_pose)
-        print("goal is sent")
 
 def add_table2():
-    global isGoalSent
     add_to_qeue(Table_2_pose)
     label_update('Table 2')
-    if not isGoalSent:
-        isGoalSent=True
-        send_goal(Table_2_pose)
 
 def add_table3():
-    global isGoalSent  
     add_to_qeue(Table_3_pose)
     label_update('Table 3')
-    if not isGoalSent:
-        isGoalSent=True
-        send_goal(Table_3_pose)
 
 def add_cashir():
-    global isGoalSent    
     add_to_qeue(Casher_pose)
     label_update('Casher')
-    if not isGoalSent:
-        isGoalSent=True
-        send_goal(Casher_pose)
-
 # #==============================================================#
 
 # Setting up the Tkinter window
@@ -98,6 +74,17 @@ Table_2_button.grid(row=1, column=0, columnspan=2)
 Table_3_button.grid(row=2, column=0, columnspan=2)
 cashir_button.grid(row=3, column=0, columnspan=2)
 
+# qeue1 = tk.Label(GuiWindow, text="No request")
+# qeue2 = tk.Label(GuiWindow, text="No request")
+# qeue3 = tk.Label(GuiWindow, text="No request")
+# qeue4 = tk.Label(GuiWindow, text="No request")
+# qeue5 = tk.Label(GuiWindow, text="No request")
+
+# qeue1.grid(row=4,column=0)
+# qeue2.grid(row=5, column=0)
+# qeue3.grid(row=6, column=0)
+# qeue4.grid(row=7, column=0)
+# qeue5.grid(row=8, column=0)
 
 def label_update(label_name):
     if len(labels) != 5:
@@ -115,8 +102,7 @@ def add_to_qeue(pose):
     else:
         print("You have qeue of 5")
 
-def deleteFromGoalsQeue():
-    print("in remove from qeue")
+def delteFromGoalsQeue():
     Goals_qeue.pop(0)
     label = labels.pop(0)
     label.destroy()
