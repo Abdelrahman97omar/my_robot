@@ -7,28 +7,24 @@
 ros::Publisher pub;
 
 // Feedback callback
-void feedbackCB(const move_base_msgs::MoveBaseFeedbackConstPtr& feedback) {
+void feedbackCB(const move_base_msgs::MoveBaseFeedbackConstPtr& feedback) {}
 
-    //In this function add condition that if feedback doesn't match goal odom, cancel current goal and send to gui to send new goal
-
-}
 // Result callback
 void doneCB(const actionlib::SimpleClientGoalState& state, const move_base_msgs::MoveBaseResultConstPtr& result) {
 
-    ROS_INFO("in call back %s", state.toString().c_str());
-    ROS_INFO("in donce");
-    if (state == actionlib::SimpleClientGoalState::SUCCEEDED) {
-        ROS_INFO("goal succeded");
+    if (state == actionlib::SimpleClientGoalState::SUCCEEDED || state == actionlib::SimpleClientGoalState::ABORTED ) 
+    {
+        ROS_INFO("in call back %s", state.toString().c_str());
         std_msgs::String robotresult;
+        ros::Duration(3.0); //wait at each table 3 seconds
         robotresult.data = "Done";
         pub.publish(robotresult);
-}
+    }
 }
 
 // Active callback
-void activeCB() {
-    ROS_INFO("Goal is now being processed by the server.");
-}
+void activeCB() {ROS_INFO("Goal is now being processed by the server.");}
+
 void guiCB(const geometry_msgs::Pose::ConstPtr& my_msg, actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction>& ac)
 {
         ROS_INFO("I have received a goal");

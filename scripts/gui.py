@@ -10,12 +10,12 @@ rospy.init_node('gui_goal_sender', anonymous=True)
 pub = rospy.Publisher('gui_action_topic_send_table', Pose, queue_size=10) # Publish goal to client
 goal = Pose()
 
-Home_pose   =(0,0,0)
+Home_pose   =(0.5,0.5,0)
 Table_1_pose=(6.4,2.4,0)
 Table_2_pose=(6.2,-0.75,0)
 Table_3_pose=(6.2,-4,0)
 Casher_pose =(4,4,0)
-isGoalSent=False
+isOnlyGoal=False
 Goals_qeue=[]  # qeue of the goals to be sent to ros 
 labels=[]      # qeue of labels
 
@@ -35,50 +35,49 @@ def send_goal(goTo):
         pub.publish(goal)
         
 def stateCB(data):
-    global isGoalSent
-    print("in done call back")
+    global isOnlyGoal
+
+    # if isOnlyGoal: # 
     if data.data=='Done' and len(Goals_qeue)>0:
-        print("I have recieved done")
-        deleteFromGoalsQeue()
         send_goal(Goals_qeue[0])
+        deleteFromGoalsQeue()
     elif data.data=='Done' and len(Goals_qeue)==0:
-        isGoalSent=False
+        isOnlyGoal=False
+        send_goal(Home_pose)
 
 state_sub = rospy.Subscriber('GUI_Cleint_state_topic',String,stateCB)
 
 def add_table1():
-    global isGoalSent
-    print("in table 1")
+    global isOnlyGoal
     add_to_qeue(Table_1_pose)
     label_update('Table 1')
-    if not isGoalSent:
-        isGoalSent=True
-        print("Sending goal")
+    if not isOnlyGoal:
+        isOnlyGoal=True
         send_goal(Table_1_pose)
         print("goal is sent")
 
 def add_table2():
-    global isGoalSent
+    global isOnlyGoal
     add_to_qeue(Table_2_pose)
     label_update('Table 2')
-    if not isGoalSent:
-        isGoalSent=True
+    if not isOnlyGoal:
+        isOnlyGoal=True
         send_goal(Table_2_pose)
 
 def add_table3():
-    global isGoalSent  
+    global isOnlyGoal  
     add_to_qeue(Table_3_pose)
     label_update('Table 3')
-    if not isGoalSent:
-        isGoalSent=True
+    if not isOnlyGoal:
+        isOnlyGoal=True
         send_goal(Table_3_pose)
 
 def add_cashir():
-    global isGoalSent    
+    global isOnlyGoal    
     add_to_qeue(Casher_pose)
     label_update('Casher')
-    if not isGoalSent:
-        isGoalSent=True
+    if not isOnlyGoal:
+        isOnlyGoal=True
         send_goal(Casher_pose)
 
 # #==============================================================#
@@ -111,7 +110,7 @@ def add_to_qeue(pose):
     global Goals_qeue
     if len(Goals_qeue)<5:
         Goals_qeue.append(pose)
-        print(Goals_qeue)
+        print(f"The currunt goals qeue is: {Goals_qeue} and the qeue length is {len(Goals_qeue)}")
     else:
         print("You have qeue of 5")
 
@@ -120,6 +119,8 @@ def deleteFromGoalsQeue():
     Goals_qeue.pop(0)
     label = labels.pop(0)
     label.destroy()
+    print(f"In deletefromgoalsqeue and the currunt goals qeue is: {Goals_qeue} and the qeue length is {len(Goals_qeue)}")
+
 
 def euler_to_quaternion(theta):
     rotation = R.from_euler('z', theta, degrees=True)  # 'z' axis, theta in degrees
